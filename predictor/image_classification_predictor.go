@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/abhiutd/tflite-agent"
 	"github.com/k0kubun/pp"
 	opentracing "github.com/opentracing/opentracing-go"
 	olog "github.com/opentracing/opentracing-go/log"
@@ -16,7 +17,6 @@ import (
 	"github.com/rai-project/dlframework/framework/options"
 	common "github.com/rai-project/dlframework/framework/predictor"
 	"github.com/rai-project/downloadmanager"
-	"github.com/abhiutd/tflite-agent"
 	"github.com/rai-project/tracer"
 	"github.com/rai-project/tracer/ctimer"
 	gotensor "gorgonia.org/tensor"
@@ -25,7 +25,7 @@ import (
 // ImageClassificationPredictor ...
 type ImageClassificationPredictor struct {
 	common.ImagePredictor
-	labels    []string
+	labels []string
 }
 
 // New ...
@@ -201,10 +201,10 @@ func (p *ImageClassificationPredictor) loadPredictor(ctx context.Context) error 
 		return err
 	}
 
-  ////// TODO
-  // contact mobile agent and create an instance of mPredictor
-  // send (framework, model, hardware mode, datatype) as part of the message
-  // get a confirmation from mobile agent and continue
+	////// TODO
+	// contact mobile agent and create an instance of mPredictor
+	// send (framework, model, hardware mode, datatype) as part of the message
+	// get a confirmation from mobile agent and continue
 	/*pred, err := gopytorch.New(
 		ctx,
 		options.WithOptions(opts),
@@ -241,11 +241,11 @@ func (p *ImageClassificationPredictor) Predict(ctx context.Context, data interfa
 		input = append(input, t.Float32s()...)
 	}
 
-  ////// TODO
-  // contact mobile agent with raw image data (not preprocessed) 
-  // perform prediction on the device
-  // record some profiling information (preprocessing, compute)
-  // return some profiling information
+	////// TODO
+	// contact mobile agent with raw image data (not preprocessed)
+	// perform prediction on the device
+	// record some profiling information (preprocessing, compute)
+	// return some profiling information
 	/*err := p.predictor.Predict(ctx, []gotensor.Tensor{
 		gotensor.New(
 			gotensor.Of(gotensor.Float32),
@@ -265,9 +265,9 @@ func (p *ImageClassificationPredictor) ReadPredictedFeatures(ctx context.Context
 	span, ctx := tracer.StartSpanFromContext(ctx, tracer.APPLICATION_TRACE, "read_predicted_features")
 	defer span.Finish()
 
-  ////// TODO
-  // contact mobile agent to read predictions
-  // and postprocessing profiling value
+	////// TODO
+	// contact mobile agent to read predictions
+	// and postprocessing profiling value
 	/*outputs, err := p.predictor.ReadPredictionOutput(ctx)
 	if err != nil {
 		return nil, err
@@ -285,8 +285,8 @@ func (p *ImageClassificationPredictor) Reset(ctx context.Context) error {
 // Close ...
 func (p *ImageClassificationPredictor) Close() error {
 	////// TODO
-  // contact mobile agent to close mPredictor
-  /*if p.predictor != nil {
+	// contact mobile agent to close mPredictor
+	/*if p.predictor != nil {
 		p.predictor.Close()
 	}*/
 	return nil

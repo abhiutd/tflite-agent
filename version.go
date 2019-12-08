@@ -1,4 +1,4 @@
-package pytorch
+package tflite
 
 // Version ...
 var (

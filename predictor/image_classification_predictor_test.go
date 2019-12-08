@@ -7,12 +7,12 @@ import (
 	"path/filepath"
 	"testing"
 
+	tflite "github.com/abhiutd/tflite-agent"
 	"github.com/k0kubun/pp"
 	"github.com/rai-project/dlframework/framework/options"
 	raiimage "github.com/rai-project/image"
 	"github.com/rai-project/image/types"
 	nvidiasmi "github.com/rai-project/nvidia-smi"
-	tflite "github.com/abhiutd/tflite-agent"
 	"github.com/stretchr/testify/assert"
 	gotensor "gorgonia.org/tensor"
 )

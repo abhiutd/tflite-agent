@@ -2,22 +2,22 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"github.com/abhiutd/tflite-agent"
+	_ "github.com/abhiutd/tflite-agent/predictor"
 	"github.com/rai-project/config"
 	cmd "github.com/rai-project/dlframework/framework/cmd/server"
 	"github.com/rai-project/logger"
-	"github.com/abhiutd/tflite-agent"
-	_ "github.com/abhiutd/tflite-agent/predictor"
 	"github.com/rai-project/tracer"
 	"github.com/sirupsen/logrus"
+	"os"
 )
 
 var (
-	modelName string
+	modelName    string
 	modelVersion string
-	hostName, _ = os.Hostname()
-	framework = tflite.FrameworkManifest
-	log *logrus.Entry
+	hostName, _  = os.Hostname()
+	framework    = tflite.FrameworkManifest
+	log          *logrus.Entry
 )
 
 func main() {
