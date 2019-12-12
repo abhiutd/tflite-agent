@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/abhiutd/tflite-agent"
+	socketio "github.com/googollee/go-socket.io"
 	"github.com/k0kubun/pp"
 	opentracing "github.com/opentracing/opentracing-go"
 	olog "github.com/opentracing/opentracing-go/log"
@@ -18,7 +19,6 @@ import (
 	common "github.com/rai-project/dlframework/framework/predictor"
 	"github.com/rai-project/downloadmanager"
 	"github.com/rai-project/tracer"
-	"github.com/rai-project/tracer/ctimer"
 	gotensor "gorgonia.org/tensor"
 )
 
@@ -205,6 +205,13 @@ func (p *ImageClassificationPredictor) loadPredictor(ctx context.Context) error 
 	// contact mobile agent and create an instance of mPredictor
 	// send (framework, model, hardware mode, datatype) as part of the message
 	// get a confirmation from mobile agent and continue
+	dataForClient := "TensorflowLite,Densenet,CPU_1_thread,float"
+	so.Emit("create", dataForClient, func(so socketio.Socket, data string) {
+		log.Println("Client ACK with data: ", data)
+	})
+
+	// Usual call to go predictor
+	// kept for reference
 	/*pred, err := gopytorch.New(
 		ctx,
 		options.WithOptions(opts),
@@ -246,6 +253,13 @@ func (p *ImageClassificationPredictor) Predict(ctx context.Context, data interfa
 	// perform prediction on the device
 	// record some profiling information (preprocessing, compute)
 	// return some profiling information
+	dataForClient := "Run prediction on camera feed"
+	so.Emit("predict", dataForClient, func(so socketio.Socket, data string) {
+		log.Println("Client ACK with data: ", data)
+	})
+
+	// Usual call to go predictor
+	// kept for reference
 	/*err := p.predictor.Predict(ctx, []gotensor.Tensor{
 		gotensor.New(
 			gotensor.Of(gotensor.Float32),
@@ -268,6 +282,13 @@ func (p *ImageClassificationPredictor) ReadPredictedFeatures(ctx context.Context
 	////// TODO
 	// contact mobile agent to read predictions
 	// and postprocessing profiling value
+	dataForClient := "Read Predicted features from camera feed"
+	so.Emit("readpredictedfeatures", dataForClient, func(so socketio.Socket, data string) {
+		log.Println("Client ACK with data: ", data)
+	})
+
+	// Usual call to go predictor
+	// kept for reference
 	/*outputs, err := p.predictor.ReadPredictionOutput(ctx)
 	if err != nil {
 		return nil, err
@@ -286,6 +307,13 @@ func (p *ImageClassificationPredictor) Reset(ctx context.Context) error {
 func (p *ImageClassificationPredictor) Close() error {
 	////// TODO
 	// contact mobile agent to close mPredictor
+	dataForClient := "Close"
+	so.Emit("close", dataForClient, func(so socketio.Socket, data string) {
+		log.Println("Client ACK with data: ", data)
+	})
+
+	// Usual call to go predictor
+	// kept for reference
 	/*if p.predictor != nil {
 		p.predictor.Close()
 	}*/
